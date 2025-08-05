@@ -10,7 +10,19 @@ impl MigrationTrait for Migration {
             .alter_table(
                 Table::alter()
                     .table(Users::Table)
-                    .add_column(ColumnDef::new(Users::Idp).string().not_null())
+                    .add_column(ColumnDef::new(Users::IdpUid).string().not_null())
+                    .to_owned(),
+            )
+            .await?;
+
+        manager
+            .create_index(
+                Index::create()
+                    .name("idx_users_idp_uid_unique")
+                    .table(Users::Table)
+                    .col(Users::Idp)
+                    .col(Users::IdpUid)
+                    .unique()
                     .to_owned(),
             )
             .await
@@ -21,7 +33,7 @@ impl MigrationTrait for Migration {
             .alter_table(
                 Table::alter()
                     .table(Users::Table)
-                    .drop_column(Users::Idp)
+                    .drop_column(Users::IdpUid)
                     .to_owned(),
             )
             .await
@@ -32,4 +44,5 @@ impl MigrationTrait for Migration {
 enum Users {
     Table,
     Idp,
+    IdpUid,
 }

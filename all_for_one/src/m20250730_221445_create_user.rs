@@ -13,18 +13,8 @@ impl MigrationTrait for Migration {
                     .to_owned()
                     .if_not_exists()
                     .col(ColumnDef::new(Users::Id).uuid().primary_key())
-                    .col(
-                        ColumnDef::new(Users::Username)
-                            .string()
-                            .not_null()
-                            .unique_key(),
-                    )
-                    .col(
-                        ColumnDef::new(Users::Email)
-                            .string()
-                            .not_null()
-                            .unique_key(),
-                    )
+                    .col(ColumnDef::new(Users::Username).string().unique_key())
+                    .col(ColumnDef::new(Users::Email).string().unique_key())
                     .col(
                         ColumnDef::new(Users::IsActive)
                             .boolean()

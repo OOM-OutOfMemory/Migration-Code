@@ -8,8 +8,10 @@ impl MigratorTrait for Migrator {
         vec![
             Box::new(m20250730_221445_create_user::Migration),
             Box::new(m20250805_230357_add_idp_column_in_user_table::Migration),
+            Box::new(m20250805_233224_add_idp_uid_column_in_user_table::Migration),
         ]
     }
 }
 mod m20250730_221445_create_user;
 mod m20250805_230357_add_idp_column_in_user_table;
+mod m20250805_233224_add_idp_uid_column_in_user_table;
